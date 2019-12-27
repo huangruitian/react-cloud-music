@@ -11,12 +11,11 @@ import { bindActionCreators } from 'redux'
 import { changeBannerList } from './store/actions/recommendAction'
 import { request } from './api/request'
 
-function Test({bannerList, getBannerList}) {
-  console.log('bannerList', bannerList)
-  console.log('getBannerList', getBannerList)
+function Test(props) {
+  console.log('bannerList', props)
   useEffect(() => {
     // 这个方法调用了下面的request
-    getBannerList();
+    props.getBannerList();
 
     // request({
     //   url:'/banner',
@@ -32,8 +31,8 @@ function Test({bannerList, getBannerList}) {
   )
 }
 
-const mapStateToProps = (state) => ({
-  bannerList:state.getIn(["player", "fullScreen"]),
+const mapStateToProps = ({recommend = {}}) => ({
+  bannerList:recommend.bannerList,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

@@ -13,17 +13,28 @@ import { request } from '../api/request'
  * @param {*} next   // 下一个 dispatch
  * @param {*} action // action
  */
+
+// type: CHANGE_BANNER,
+// options: {
+//     url: getBannerUrl,
+//     method: "get",
+//     data:payload, //请求数据的data
+// }
+
 const axiosMiddleware = ({dispatch, getState}) => next => action => {
-  const { type, axiosPayload } = action
-  console.log('data', axiosPayload)
-  // 发请求
-  request(axiosPayload).then(({ data }) => {
+  //这里一定要提前停止，不然前面的dispatch会冲突
+  if(!action || !action.axiosOptions || !action.axiosOptions.url){
+    return next(action)
+  }
+
+  //在这里可以统一处理加载逻辑等等。。。。
+  const { type, axiosOptions } = action
+  request(axiosOptions).then(({data}) => {
+    console.log({type, data})
     dispatch({type, data})
   }).catch((err) => {
-    console.log('request error', err)
+    console.log(`网络错误：${err}`)
   })
-  
-  return next(action)
 }
 
 export default axiosMiddleware

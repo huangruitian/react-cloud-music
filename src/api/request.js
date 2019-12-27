@@ -11,7 +11,7 @@ axios.defaults.timeout = 20000         //请求不能超两分钟
 axios.defaults.withCredentials = false //跨域请求时是否需要使用凭证, 一般为了安全需要
 axios.defaults.baseURL = 'http://49.232.8.186:3000';
 
-const fetch = ({
+export const request = ({
   method = 'get',
   url,
   data,
@@ -56,22 +56,22 @@ const fetch = ({
   }
 }
 
-export const request = (options) => {
-  //这里可以做些请求后的处理
-  return fetch(options).then(({statusText, status, headers, data}) => {
-    //这里要 Promise.resolve，不然中间件会报错？
-    return Promise.resolve({
-      success: true,
-      message: statusText,
-      statusCode: status,
-      headers,
-      data,
-    })
-  }).catch((error) => {
-    return Promise.reject({
-      success: false,
-      statusCode : 600,
-      message: 'Network Error',
-    })
-  })
-}
+// export const request = (options) => {
+//   //这里可以做些请求后的处理
+//   return fetch(options).then(({statusText, status, headers, data}) => {
+//     //这里要 Promise.resolve，不然中间件会报错？
+//     return Promise.resolve({
+//       success: true,
+//       message: statusText,
+//       statusCode: status,
+//       headers,
+//       data,
+//     })
+//   }).catch((error) => {
+//     return Promise.reject({
+//       success: false,
+//       statusCode : 600,
+//       message: 'Network Error',
+//     })
+//   })
+// }

@@ -13,20 +13,24 @@ const defaultState = {
   recommendList: [],
   enterLoading: true
 }
-
+const clearState = {
+  
+}
 // 在中间件直接取出data放进来
-export default (state = defaultState, {type, data = {}}) => {
-  console.log('recommendReducer', {type, data})
+export default (state = defaultState, {type, data}) => {
   switch(type) {
     case actionTypes.CHANGE_BANNER:
       return {
         ...state,
-        bannerList:data.banners,
+        bannerList:data,
       };
     // case actionTypes.CHANGE_RECOMMEND_LIST:
     //   return state.set('recommendList', data);
-    // case actionTypes.CHANGE_ENTER_LOADING:
-    //   return state.set('enterLoading', data);
+    case actionTypes.CHANGE_ENTER_LOADING:
+      return {
+        ...state,
+        enterLoading:data,
+      };;
     default:
       return state;
   }

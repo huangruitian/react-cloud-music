@@ -15,6 +15,4 @@ const store = createStore (reducer, composeEnhancers(
   applyMiddleware(thunk, axiosMiddleware)
 ));
 
-// const store = createStore (reducer, applyMiddleware(thunk, axiosMiddleware));
-
 export default store;
